@@ -11,7 +11,7 @@
 
 namespace Limenius\Liform\Serializer\Normalizer;
 
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Limenius\Liform\FormUtil;
@@ -38,17 +38,10 @@ class InitialValuesNormalizer implements NormalizerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof Form;
+        return $data instanceof FormInterface;
     }
 
-    /**
-     * Gets the values of the form
-     * @param Form     $form
-     * @param FormView $formView
-     *
-     * @return mixed
-     */
-    private function getValues(Form $form, FormView $formView)
+    private function getValues(FormInterface $form, FormView $formView)
     {
         if (!empty($formView->children)) {
             if (in_array('choice', FormUtil::typeAncestry($form)) &&
